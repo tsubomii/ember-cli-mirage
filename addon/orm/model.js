@@ -333,7 +333,7 @@ class Model {
     Object.keys(attrs)
       .filter((key) => {
         let value = attrs[key];
-        let isModelOrCollection = (value instanceof Model || value instanceof Collection);
+        let isModelOrCollection = (value instanceof Model || value instanceof Collection || value instanceof PolymorphicCollection);
         let isArrayOfModels = Array.isArray(value) && value.length && value.every(item => item instanceof Model);
 
         return isModelOrCollection || isArrayOfModels;
@@ -668,7 +668,7 @@ class Model {
       if (modelOrCollection instanceof Model) {
         this._associateModelWithInverse(modelOrCollection, association);
 
-      } else if (modelOrCollection instanceof Collection) {
+      } else if (modelOrCollection instanceof Collection || modelOrCollection instanceof PolymorphicCollection) {
         modelOrCollection.models
           .forEach(model => {
             this._associateModelWithInverse(model, association);
