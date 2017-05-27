@@ -97,6 +97,13 @@ export default class HasMany extends Association {
           assert(Array.isArray(ids), `You must pass an array in when seting ${foreignKey} on ${this}`);
 
           if (association.isPolymorphic) {
+            assert(ids.every((el) => {
+              return ((typeof el === 'object')
+                && (typeof el.type !== undefined)
+                && (typeof el.id !== undefined)
+              );
+            }), `You must pass in an array of polymorphic identifiers (objects of shape { type, id }) when seting ${foreignKey} on ${this}`);
+
             let models = ids.map(({ type, id }) => {
               return association.schema[toCollectionName(type)].find(id);
             });

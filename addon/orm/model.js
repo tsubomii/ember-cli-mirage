@@ -716,7 +716,9 @@ class Model {
    * @public
    */
   toString() {
-    return `model:${this.modelName}(${this.id})`;
+    let idLabel = this.id ? `(${this.id})` : '';
+
+    return `model:${this.modelName}${idLabel}`;
   }
 }
 
