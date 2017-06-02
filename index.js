@@ -112,10 +112,6 @@ module.exports = {
   },
 
   _shouldIncludeFiles: function() {
-    if (process.env.EMBER_CLI_FASTBOOT) {
-      return false;
-    }
-
     var environment = this.app.env;
     var enabledInProd = environment === 'production' && this.addonConfig.enabled;
     var explicitExcludeFiles = this.addonConfig.excludeFilesFromBuild;
